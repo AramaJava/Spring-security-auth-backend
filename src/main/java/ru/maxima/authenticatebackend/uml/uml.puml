@@ -1,0 +1,65 @@
+@startuml
+!theme crt-amber
+
+skinparam Linetype ortho
+'skinparam wrapWidth 300
+allowmixing
+title
+   <b>Spring Security</b>
+end title
+
+left to right direction
+
+rectangle "Security \n Filter \n Chain \n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" as sfc
+rectangle " OAuth \nResource\n Server \n\n\n\n\n\n\n\n " as oauth
+rectangle UserController
+rectangle AdminController
+rectangle "Authentication \n   Controller" as auc
+rectangle " Token \nService" as ts
+rectangle "  User \nService" as us
+rectangle "Authentication\n    Manager" as am
+rectangle "Authentication \n     Service" as aus
+database role
+database user
+
+oauth --> AdminController
+oauth <-- AdminController
+oauth --> UserController
+oauth <-- UserController
+
+sfc --> oauth
+sfc <-- oauth
+
+sfc ---> auc
+sfc <--- auc
+
+auc ---> aus
+auc <--- aus
+
+aus --> role
+aus <-- role
+aus --> user
+aus <-- user
+
+aus -up-> us
+aus <- us
+
+aus -> ts
+aus <- ts
+
+us -> user
+us <- user
+
+am -> us
+am <- us
+
+am -> aus
+am <- aus
+
+@enduml
+
+
+
+@startuml
+help themes
+@enduml
